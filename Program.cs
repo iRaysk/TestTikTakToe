@@ -2,7 +2,7 @@
 
 public class TicTacToe
 {
-  string[] board = new string[9];
+  private string[] board = new string[9];
   private bool isPlayerOneTurn;
   public static void Main()
   {
@@ -149,11 +149,13 @@ public class TicTacToe
   {
     if (HasWinner())
     {
-      Console.WriteLine("${GetWinner()} wins!");
+      Console.WriteLine($"{GetWinner()} wins!");
+      ShowBoard();
     }
     else
     {
       Console.WriteLine("It's a draw!");
+      ShowBoard();
     }
   }
 
