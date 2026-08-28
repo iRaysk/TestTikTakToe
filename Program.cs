@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Diagnostics.Contracts;
+using System.Dynamic;
+using System.Runtime.Serialization;
 
 public class TicTacToe
 {
@@ -33,10 +35,25 @@ public class TicTacToe
     if (IsValidInput(input))
       {
         int position = GetPosition(input);
-        MakeMove(position);
-        SwitchTurn();
+        
+        if (IsPositionAvailable(position))
+        {
+          ProcessInput(position);
+          UpdateGameState();
+
+          if (IsGameOver())
+        {
+          ShowGameOverScreen();
+          break;
+        }
+
         ShowBoard();
         ShowInputOptions();
+        }
+        else
+        {
+          Console.WriteLine("That position is already taken!");
+        }
       }
       else
       {
@@ -94,7 +111,14 @@ public class TicTacToe
 
   public void MakeMove(int position)
   {
-    board[position - 1] = "X";
+    if (isPlayerOneTurn)
+    {
+      board[position - 1] = "X"; 
+    }
+    else
+    {
+      board[position - 1] = "O";
+    }
   }
 
   public void ProcessInput(int position)
@@ -105,5 +129,90 @@ public class TicTacToe
   public void SwitchTurn()
   {
     isPlayerOneTurn = !isPlayerOneTurn;
+  }
+
+  public void UpdateGameState()
+  {
+    SwitchTurn();
+  }
+
+  public bool IsGameOver()
+  {
+    if (Checkline(0, 1, 2))
+    {
+      return true;
+    }
+    
+    if (Checkline(3, 4, 5))
+    {
+      return true;
+    }
+
+    if (Checkline(6, 7 , 8))
+    {
+      return true;
+    }
+
+    if (Checkline (0, 3, 6))
+    {
+      return true;
+    }
+
+    if (Checkline (1, 4, 7))
+    {
+      return true;
+    }
+
+    if (Checkline (2, 5, 8))
+    {
+      return true;
+    }
+
+    if (Checkline (0, 4, 8))
+    {
+      return true;
+    }
+
+    if (Checkline (2, 4, 6))
+    {
+      return true;
+    }
+
+    if (IsBoardFull())
+    {
+      return true;
+    }
+
+    return false;
+  }
+
+  public bool Checkline(int a, int b, int c)
+  {
+    return board[a] == board[b] && 
+          board[b] == board[c] &&
+          (board[a] == "X" || board[a] == "O");
+  }
+
+  public void ShowGameOverScreen()
+  {
+    Console.WriteLine("Game Over!");
+  }
+
+  public bool IsPositionAvailable(int position)
+  {
+    return board[position - 1] != "X" &&
+          board [position - 1] != "O";
+  }
+
+  public bool IsBoardFull()
+  {
+    for (int i = 0; i < board.Length; i++)
+    {
+      if (board[i] != "X" && board[i] != "O")
+      {
+        return false;
+      }
+    }
+    return true;
   }
 }
