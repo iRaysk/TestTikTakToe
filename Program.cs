@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Diagnostics.Contracts;
-using System.Dynamic;
-using System.Runtime.Serialization;
 
 public class TicTacToe
 {
@@ -138,52 +135,7 @@ public class TicTacToe
 
   public bool IsGameOver()
   {
-    if (Checkline(0, 1, 2))
-    {
-      return true;
-    }
-    
-    if (Checkline(3, 4, 5))
-    {
-      return true;
-    }
-
-    if (Checkline(6, 7 , 8))
-    {
-      return true;
-    }
-
-    if (Checkline (0, 3, 6))
-    {
-      return true;
-    }
-
-    if (Checkline (1, 4, 7))
-    {
-      return true;
-    }
-
-    if (Checkline (2, 5, 8))
-    {
-      return true;
-    }
-
-    if (Checkline (0, 4, 8))
-    {
-      return true;
-    }
-
-    if (Checkline (2, 4, 6))
-    {
-      return true;
-    }
-
-    if (IsBoardFull())
-    {
-      return true;
-    }
-
-    return false;
+    return HasWinner() || IsBoardFull();
   }
 
   public bool Checkline(int a, int b, int c)
@@ -195,7 +147,14 @@ public class TicTacToe
 
   public void ShowGameOverScreen()
   {
-    Console.WriteLine("Game Over!");
+    if (HasWinner())
+    {
+      Console.WriteLine("${GetWinner()} wins!");
+    }
+    else
+    {
+      Console.WriteLine("It's a draw!");
+    }
   }
 
   public bool IsPositionAvailable(int position)
@@ -214,5 +173,34 @@ public class TicTacToe
       }
     }
     return true;
+  }
+
+  public string GetWinner()
+  {
+    if (isPlayerOneTurn)
+    {
+      return "Player 2";
+    }
+    else
+    {
+      return "Player 1";
+    }
+  }
+
+  public bool HasWinner()
+  {
+    if (Checkline(0, 1, 2) ||
+        Checkline(3, 4, 5) ||
+        Checkline(6, 7, 8) ||
+        Checkline(0, 3, 6) ||
+        Checkline(1, 4, 7) ||
+        Checkline(2, 5, 8) ||
+        Checkline(0, 4, 8) ||
+        Checkline(2, 4, 6))
+    {
+      return true;
+    }
+
+    return false;
   }
 }
