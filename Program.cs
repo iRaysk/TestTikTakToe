@@ -12,7 +12,17 @@ public class TicTacToe
   
   public void ShowGameStartScreen()
   {
-    Console.WriteLine("Welcome to Tic-Tac-Toe!");
+    Console.WriteLine(@" _______  ___   _______    _______  _______  _______    _______  _______  _______ 
+|       ||   | |       |  |       ||   _   ||       |  |       ||       ||       |
+|_     _||   | |       |  |_     _||  |_|  ||       |  |_     _||   _   ||    ___|
+  |   |  |   | |       |    |   |  |       ||       |    |   |  |  | |  ||   |___ 
+  |   |  |   | |      _|    |   |  |       ||      _|    |   |  |  |_|  ||    ___|
+  |   |  |   | |     |_     |   |  |   _   ||     |_     |   |  |       ||   |___ 
+  |___|  |___| |_______|    |___|  |__| |__||_______|    |___|  |_______||_______|
+  
+  ");
+  Console.WriteLine(@"Welcome to Tic-Tac-Toe!
+  ");
   }
 
   public TicTacToe()
